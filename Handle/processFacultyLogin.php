@@ -34,6 +34,7 @@ if(($_SERVER['REQUEST_METHOD']) == 'POST' && (!empty($_POST['FacultyLogin']))) {
     // $count 1 chk [END]
   } else {
     $LoginMsg = '<p class="UserFormError">Incorrect Email!</p>';
+    $formDBLink->close();
   }
 } else {
   // $LoginMsg = '<p class="UserFormError">Empty Field!</p>';

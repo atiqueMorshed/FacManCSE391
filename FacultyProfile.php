@@ -1,8 +1,4 @@
-<%@ page import="Database.DBConnect" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="EditFaculty.FacultyDatabaseInfoFinder" %>
+<?php include "Handle/processFacultyProfile.php";?>
 <!DOCTYPE html>
 <html>
 
@@ -29,12 +25,12 @@
 </head>
 
 <body>
-<%--<%--%>
-<%--    if(session.getAttribute("USER") != "2") {--%>
-<%--        response.sendRedirect("index.jsp");--%>
-<%--    }--%>
-<%--%>--%>
-  <div class="containerMinHeight">
+<?php
+  if(!(isset($_SESSION['FacultyEmail']))) {
+    header("Location: index.php");
+  }
+?>
+  <div class="containerMinHeight" style="margin-left:-10%;">
     <div class="mainHeight">
       <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
           <div class="container"><a class="navbar-brand" href="index.php">FacMan</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
@@ -42,7 +38,7 @@
                   <ul class="nav navbar-nav ml-auto">
                       <li class="nav-item" role="presentation"></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyProfile.jsp">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyProfile.php">Profile</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
 
                   </ul>
@@ -50,7 +46,7 @@
           </div>
       </nav>
       <div class="height150"></div>
-      <div class="container profile profile-view facultyProfileBlock" id="profile">
+      <div class="container profile profile-view facultyProfileBlock" class="profile">
           <!-- <div class="row">
               <div class="col-md-12 alert-col relative">
                   <div class="alert alert-info absolue center" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
@@ -58,30 +54,36 @@
           </div> -->
           <form>
               <div class="form-row profile-row">
-                  <div class="col-xs-12">
+                  <div class="col-md-11">
                       <h1>Profile </h1>
                       <hr>
                       <div class="form-row">
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="<%= session.getAttribute("NAME") %>"></div>
+                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="<?php echo $_SESSION['FacultyName']?>"></div>
                           </div>
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Initial </label><input class="form-control" disabled type="text" name="initial" value="<%= session.getAttribute("INITIAL") %>"></div>
+                              <div class="form-group"><label>Initial </label><input class="form-control" disabled type="text" name="initial" value="<?php echo $_SESSION['FacultyInitial']?>"></div>
                           </div>
                       </div>
-                      <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled autocomplete="off" required="" name="email" value="<%= session.getAttribute("FACULTYEMAIL") %>"></div>
+                      <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled autocomplete="off" required="" name="email" value="<?php echo $_SESSION['FacultyEmail']?>"></div>
                       <div class="form-row">
-<%--                          <div class="col-sm-12 col-md-6">--%>
-                            <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="EditFacultyProfile.jsp">Edit</a></div>
-<%--                          </div>--%>
-
+                            <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="EditFacultyProfile.php">Edit</a></div>
                       </div>
-                      <hr>
+                  </div>
+
+          </form>
+
+          <!--  -->
+      <hr>
+      <!-- <div class="container profile profile-view facultyProfileBlock" class="profile">
+				<div class="form-row profile-row"> -->
+                <!-- <div class="form-row profile-row"> -->
+					        <div class="col-md-11">
                       <div class="FacultyTableDatabase">
                         <table class="table FacultyProfileTable">
                           <thead class="thead-dark">
                             <tr>
-                              <th scope="col">#</th>
+                              <!-- <th scope="col">#</th> -->
                               <th scope="col">Course</th>
                               <th scope="col">Section</th>
                               <th scope="col">Day</th>
@@ -94,94 +96,74 @@
                             </tr>
                           </thead>
                           <tbody>
-                          <%
-                              if(session.getAttribute("USER") != "2") {
-                                  response.sendRedirect("index.jsp");
-                              }else{
-                              String email = session.getAttribute("FACULTYEMAIL").toString();
-                              FacultyDatabaseInfoFinder fdif = new FacultyDatabaseInfoFinder();
-                              int facultyCourses = fdif.FacultyCoursesFinder(email);
-                              DBConnect dbc = new DBConnect();
-                              Connection con = dbc.getConnection();
-                              PreparedStatement ps = con.prepareStatement("SELECT * FROM facourses WHERE FacultyCourses=?");
-                              ps.setInt(1, facultyCourses);
-                              ResultSet rs = ps.executeQuery();
-                              int i = 1;
-                              while(rs.next()) {
-
-                                  String day=fdif.dayFinder(rs.getInt("Day"));
-                                  String time=fdif.timeFinder(rs.getInt("Time"));
-                                  String activeStatus = fdif.ActiveStatusFinder(rs.getInt("ActiveStatus"));
-                                  int FCID = rs.getInt("FCID");
-                          %>
+                          <?php
+                          if(!(isset($_SESSION['FacultyEmail']))) {
+                              header('Location: index.php');
+                          }else{
+                            include "Handle/processFacultyProfileDatabase.php";
+                            $email = $_SESSION['FacultyEmail'];
+                            $FacultyCourses= FacultyCoursesFinder($email);
+                            if($FacultyCourses!= -1) {
+                              include("Handle/loginDB.php");
+                              $formDBLink = mysqli_connect($host,$user,$password,$dbname);
+                              $sqlQuery="SELECT * FROM facourses WHERE FacultyCourses='$FacultyCourses'";
+                              $result=$formDBLink->query($sqlQuery);
+                              $i=1;
+                              while($row=$result->fetch_assoc()) {
+                                $CourseID = $row['CourseID'];
+                                $Section = $row['Section'];
+                                $Day = findDay($row['Day']);
+                                $Time = findTime($row['Time']);
+                                $TotalStudents = $row['TotalStudents'];
+                                $AS = $row['ActiveStatus'];
+                                $ActiveStatus = findActiveStatus($AS);
+                                $FCID = $row['FCID'];
+                          ?>
                             <tr>
-                              <th><%=i%></th>
-                              <td>CSE<%=rs.getInt("CourseID")%></td>
-                              <td><%=rs.getInt("Section")%></td>
-                              <td><%=day%></td>
-                              <td><%=time%></td>
-                              <td><%=rs.getInt("TotalStudents")%></td>
-                              <td><%=activeStatus%></td>
-                              <td><a href="FacultyProfileDatabaseDelete.php?FCID=<%=FCID%>"><img src="assets/img/delete.png" height="20px"></a></td>
-                                <%
-                                if(rs.getInt("ActiveStatus")==1){
-                                %>
-                                <td><a href="FacultyProfileDatabaseActiveStatus.php?FCID=<%=FCID%>"><img src="assets/img/on.png" height="20px"></a></td>
-
-                                <%
+                              <!-- <th><?php echo $i ?></th> -->
+                              <td>CSE<?php echo $CourseID ?></td>
+                              <td><?php echo $Section ?></td>
+                              <td><?php echo $Day ?></td>
+                              <td><?php echo $Time ?></td>
+                              <td><?php echo $TotalStudents ?></td>
+                              <td><?php echo $ActiveStatus ?></td>
+                              <td><a href="FacultyProfileDatabaseDelete.php?FCID=<?php echo $FCID ?>"><img src="assets/img/delete.png" height="20px"></a></td>
+                                <?php
+                                if($AS==1){
+                                ?>
+                                <td><a href="FacultyProfileDatabaseActiveStatus.php?FCID=<?php echo $FCID ?>"><img src="assets/img/on.png" height="20px"></a></td>
+                                <?php
                                 }else{
-                                %>
-                                <td><a href="FacultyProfileDatabaseActiveStatus.php?FCID=<%=FCID%>"><img src="assets/img/off.png" height="20px"></a></td>
-                                <%
+                                ?>
+                                <td><a href="FacultyProfileDatabaseActiveStatus.php?FCID=<?php echo $FCID ?>"><img src="assets/img/off.png" height="20px"></a></td>
+                                <?php
                                     }
-                                %>
+                                ?>
 
-                              <td><a href="FacultyProfileDatabaseMessageAll.php?FCID=<%=FCID%>">...</a></td>
+                              <td><a href="FacultyProfileDatabaseMessageAll.php?FCID=<?php echo $FacultyCourses ?>"><img src="assets/img/message2.png" height="20px"></a></td>
 
                             </tr>
 
-                          <%
-                              i++;
+                          <?php
+                              $i= $i+1;
                               }
-                              rs.close();
-                              con.close();
-                              }
-                          %>
-<%--                            <tr>--%>
-<%--                              <th scope="row">2</th>--%>
-<%--                              <td>CSE110</td>--%>
-<%--                              <td>2</td>--%>
-<%--                              <td>SUN-TUE [10.30AM-12.00PM]</td>--%>
-<%--                              <td><div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="messageAllCourse2">Send</button></div></td>--%>
-<%--                              <td><div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="profileCourseDeleteButton2">Delete</button></div></td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                              <th scope="row">3</th>--%>
-<%--                              <td>CSE111</td>--%>
-<%--                              <td>1</td>--%>
-<%--                              <td>MON-WED [10.30AM-12.00PM]</td>--%>
-<%--                              <td><div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="messageAllCourse3">Send</button></div></td>--%>
-<%--                              <td><div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="profileCourseDeleteButton3">Delete</button></div></td>--%>
-<%--                            </tr>--%>
-                          </tbody>
-                        </table>
-<%--                          <div class="col-sm-12 col-md-6">--%>
-                              <div class="col-md-12 content-right"><a class="btn btn-danger form-btn noUnderline" href="AddCourseFaculty.jsp">Add Course</a></div>
-<%--                          </div>--%>
+                              $formDBLink->close();
+                            }
+                          }
+                          ?>
+                          <div class="height150"></div>
                       </div>
-
+                    </div>
                   </div>
+                </div>
               </div>
-          </form>
-      </div>
-        <div class="height150"></div>
-      </div>
+            </div>
+
+<!-- <footer class="bg-black footerBottom">
+    <div class="container">
+        <p class="text-center text-white m-0 small footerContent">Copyright&nbsp;© FacMan 2020</p>
     </div>
-    <footer class="bg-black footerBottom">
-        <div class="container">
-            <p class="text-center text-white m-0 small footerContent">Copyright&nbsp;© FacMan 2020</p>
-        </div>
-    </footer>
+</footer> -->
 
 
     <script src="assets/js/jquery.min.js"></script>
