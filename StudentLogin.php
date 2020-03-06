@@ -1,3 +1,6 @@
+<?php
+include "Handle/sessionDestroy.php";
+include "Handle/processStudentLogin.php";?>
 <!DOCTYPE html>
 <html>
 
@@ -24,9 +27,6 @@
 </head>
 
 <body>
-<%
-    session.invalidate();
-%>
   <div class="containerMinHeight">
     <div class="mainHeight">
       <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
@@ -35,9 +35,13 @@
                   <ul class="nav navbar-nav ml-auto">
                       <li class="nav-item" role="presentation"></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="index.jsp">Home</a></li>
-                      <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Login</a>
+                      <!-- <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Login</a>
                           <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="FacultyLogin.jsp">Faculty</a><a class="dropdown-item" role="presentation" href="StudentLogin.jsp">Student</a><a class="dropdown-item" role="presentation" href="AdminLogin.jsp">Admin</a></div>
-                      </li>
+                      </li> -->
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyLogin.php">Faculty</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="StudentLogin.php">Student</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="AdminLogin.php">Admin</a></li>
+
                   </ul>
               </div>
           </div>
@@ -45,12 +49,19 @@
       <div class="height150"></div>
         <div class="login-card"><img class="profile-img-card" src="assets/img/avatar_2x.png">
             <p class="profile-name-card"> </p>
-            <form action="StudentLogin" method="post" class="form-signin">
+            <form action="StudentLogin.php" method="post" class="form-signin">
                 <span class="reauth-email"> </span>
-                <input class="form-control" type="email" id="inputEmail" required="" placeholder="Email address" autofocus="" pattern="[a-z0-9]{3,15}@[a-z]{5}\.[a-z]{1,3}" name="email">
-                <input class="form-control" type="password" id="inputPassword" required="" placeholder="Password" name="password" pattern=".{8,}">
-              <button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: rgba(33,37,41,0.81);">Login</button></form></div>
-    </div>
+                <input class="form-control" type="email" id="inputEmail" required="" placeholder="Email address" autofocus="" pattern="[a-z0-9]{3,15}@[a-z]{5}\.[a-z]{1,3}" name="StudentEmail">
+                <input class="form-control" type="password" id="inputPassword" required="" placeholder="Password" name="StudentPassword" pattern=".{8,}">
+                <button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: rgba(33,37,41,0.81);" value="Login" name="StudentLogin">Login</button>
+            </form>
+              <?php
+                if (isset($LoginMsg)) {
+                  echo $LoginMsg;
+                }
+              ?>
+        </div>
+      </div>
     </div>
 
   <footer class="bg-black footerBottom">

@@ -34,7 +34,7 @@
                       <li class="nav-item" role="presentation"></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
                       <?php
-                          if(!(isset($_SESSION['AdminEmail']))) {
+                          if(!(isset($_SESSION['AdminEmail']) || (isset($_SESSION['StudentEmail'])) || (isset($_SESSION['FacultyEmail'])))) {
                       ?>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyLogin.php">Faculty</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="StudentLogin.php">Student</a></li>
@@ -56,7 +56,7 @@
                       ?>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="AddFaculty.php">Add Faculty</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="AddStudent.php">Add Student</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
+
                       <!-- <li class="nav-item dropdown">
                           <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Register</a>
                           <div class="dropdown-menu" role="menu">
@@ -68,6 +68,31 @@
 
                       <?php
                           }
+                      ?>
+
+                      <?php
+                          if(isset($_SESSION['FacultyEmail'])) {
+                      ?>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyProfile.php">Profile</a></li>
+                      <?php
+                          }
+                      ?>
+
+                      <?php
+                          if(isset($_SESSION['StudentEmail'])) {
+                      ?>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.php">Profile</a></li>
+                      <?php
+                          }
+                      ?>
+
+
+                      <?php
+                          if((isset($_SESSION['AdminEmail']) || (isset($_SESSION['StudentEmail'])) || (isset($_SESSION['FacultyEmail'])))) {
+                      ?>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
+                      <?php
+                      }
                       ?>
 
                       <!-- <%

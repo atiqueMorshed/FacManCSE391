@@ -1,4 +1,6 @@
-<?php include "Handle/processAdminLogin.php";?>
+<?php
+include "Handle/sessionDestroy.php";
+include "Handle/processAdminLogin.php";?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,13 +37,6 @@
                       <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyLogin.php">Faculty</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="StudentLogin.php">Student</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="AdminLogin.php">Admin</a></li>
-                      <!-- <li class="nav-item dropdown">
-                          <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="">Login</a>
-                          <div class="dropdown-menu" role="menu">
-                              <a class="dropdown-item" role="presentation" href="FacultyLogin.php">Faculty</a>
-                              <a class="dropdown-item" role="presentation" href="StudentLogin.php">Student</a>
-                              <a class="dropdown-item" role="presentation" href="AdminLogin.jsp">Admin</a></div>
-                      </li> -->
                   </ul>
               </div>
           </div>
