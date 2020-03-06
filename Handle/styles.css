@@ -1,0 +1,151 @@
+body {
+	max-width: 80%;
+	margin: auto;
+	font-family: sans-serif;
+	background-color: #f0f0f0;
+}
+/* navbar */
+.icon {
+	padding-right: 40px;
+}
+.navbar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+  background-color: #333;
+}
+.navbar li{
+	float: right;
+	text-align: center;
+	padding-right: 10px;
+}
+.navbar ul .icon {
+	float: left;
+}
+
+.navbar li a{
+	display: block;
+	color: #f2f2f2;
+	padding: 15px 15px;
+	text-decoration: none;
+	/*text-transform: uppercase;*/
+}
+.navbar li a:hover {
+	/* background-color: #5c5858; */
+	background-color: #ddd;
+  color: black;
+}
+.navbar li a:active {
+  background-color: #e3e3e3;
+  color: white;
+}
+
+
+/* Images */
+.sliderImage {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+}
+.frontSlider {
+  position: relative;
+  text-align: center;
+  color: white;
+	margin-bottom: 20px;
+}
+
+/* body text message */
+.mustLogin {
+	color: #333;
+	font-size: 40px;
+  text-align: center;
+}
+.setAppointment {
+  color: #333;
+	font-size: 40px;
+  text-align: center;
+}
+.setAppointment a {
+  text-decoration: none;
+  color: black;
+}
+.setAppointment a:hover {
+  color: #555;
+  text-decoration: underline;
+}
+
+/* global message colors */
+.UserFormError {
+  color: red;
+  width: 50%;
+  margin-left : 25%;
+  font-size: 20px;
+}
+.UserFormSuccess {
+  color: green;
+  width: 50%;
+  margin-left : 25%;
+  font-size: 20px;
+}
+
+/* createAppointment Form */
+input[type=text], input[type=date], input[type=tel], input[type=email], input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button[type=submit] {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background-color: #222;
+}
+
+.appointmentForm {
+  width: 50%;
+  margin-left : 25%
+}
+.appointmentFormAdmin {
+  width: 25%;
+  margin-left : 37%
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+th {
+	background-color: #dddddd;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.formSignup {
+  width: 40%;
+  margin-left : 30%
+}
+
+.FormSubmitMessage {
+  width: 50%;
+  margin-left : 25%
+  color: red;
+}
