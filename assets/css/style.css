@@ -1,8 +1,15 @@
 html, body {
   height: 100%;
+  width: 100%;
 }
 .height150 {
   height: 150px;
+}
+.height100 {
+  height: 100px;
+}
+.xheight50 {
+  height: 50px;
 }
 .containerMinHeight {
   min-height: 100%;
@@ -41,6 +48,9 @@ html, body {
 .FacultyTableDatabase a {
   text-decoration: underline;
 }
+.FacultyTableDatabase th, td {
+  text-align: center;
+}
 .confirmEdit {
   padding: 10px 20px;
   display: block;
@@ -60,13 +70,13 @@ html, body {
 
 .UserFormError {
   color: red;
-  width: 50%;
+  /* width: 50%;
   margin-left : 25%;
-  font-size: 20px;
+  font-size: 20px; */
 }
 .UserFormSuccess {
   color: green;
-  width: 50%;
+  /* width: 50%;
   margin-left : 25%;
-  font-size: 20px;
+  font-size: 20px; */
 }

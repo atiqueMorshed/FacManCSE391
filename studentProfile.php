@@ -1,3 +1,8 @@
+<?php include "Handle/processStudentProfile.php";
+  if(!(isset($_SESSION['StudentEmail']))) {
+    header('Location: index.php');
+  }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,21 +29,16 @@
 </head>
 
 <body>
-<%
-    if(session.getAttribute("USER") != "3") {
-        response.sendRedirect("index.jsp");
-    }
-%>
   <div class="containerMinHeight">
     <div class="mainHeight">
       <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
-          <div class="container"><a class="navbar-brand" href="index.jsp">FacMan</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
+          <div class="container"><a class="navbar-brand" href="index.php">FacMan</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
               <div class="collapse navbar-collapse" id="navbarResponsive">
                   <ul class="nav navbar-nav ml-auto">
                       <li class="nav-item" role="presentation"></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="index.jsp">Home</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.jsp">Profile</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="logout.jsp">Logout</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.php">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
                   </ul>
               </div>
           </div>
@@ -57,15 +57,30 @@
                       <hr>
                       <div class="form-row">
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="Student One"></div>
+                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="<?php echo $_SESSION['StudentName']; ?>"></div>
                           </div>
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Password </label><input class="form-control" disabled type="text" name="initial" value="********"></div>
+                              <div class="form-group"><label>DOB </label><input class="form-control" disabled type="date" name="dob" value="<?php echo $_SESSION['DOB']; ?>"></div>
                           </div>
                       </div>
-                      <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled name="email" value="student1@gmail.com"></div>
                       <div class="form-row">
-                          <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="editStudentProfile.jsp">Edit</a></div>
+                          <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled name="email" value="<?php echo $_SESSION['StudentEmail']; ?>"></div>
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group"><label>Phone </label><input class="form-control" disabled type="text" name="phone" value="<?php echo $_SESSION['Phone']; ?>"></div>
+                          </div>
+                      </div>
+                      <!-- <div class="form-row">
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="<?php echo $_SESSION['StudentName']; ?>"></div>
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group"><label>Password </label><input class="form-control" disabled type="text" name="DOB" value="<?php echo $_SESSION['DOB']; ?>"></div>
+                          </div>
+                      </div> -->
+                      <div class="form-row">
+                          <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="EditStudentProfile.php">Edit</a></div>
                       </div>
                       <hr>
                       <div class="studentCoursesTaken">
@@ -75,6 +90,8 @@
                               <th scope="col">#</th>
                               <th scope="col">Course</th>
                               <th scope="col">Section</th>
+                              <th scope="col">Faculty</th>
+                              <th scope="col">Day</th>
                               <th scope="col">Time</th>
                             </tr>
                           </thead>
@@ -83,22 +100,31 @@
                               <th scope="row">1</th>
                               <td>CSE110</td>
                               <td>1</td>
-                              <td>SUN-TUE [09.00AM-10.20AM]</td>
+                              <td>faculty@gmail.com</td>
+                              <td>SUN-TUE</td>
+                              <td>09.00AM-10.20AM</td>
                             </tr>
                             <tr>
                               <th scope="row">2</th>
                               <td>CSE110</td>
                               <td>2</td>
-                              <td>SUN-TUE [10.30AM-12.00PM]</td>
+                              <td>faculty@gmail.com</td>
+                              <td>SUN-TUE</td>
+                              <td>09.00AM-10.20AM</td>
                             </tr>
                             <tr>
                               <th scope="row">3</th>
                               <td>CSE111</td>
                               <td>1</td>
-                              <td>MON-WED [10.30AM-12.00PM]</td>
+                              <td>faculty@gmail.com</td>
+                              <td>SUN-TUE</td>
+                              <td>09.00AM-10.20AM</td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="form-row">
+                          <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="AddStudentCourse.php">Add Course</a></div>
                       </div>
 
                   </div>

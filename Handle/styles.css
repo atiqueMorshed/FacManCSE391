@@ -78,15 +78,15 @@ body {
 /* global message colors */
 .UserFormError {
   color: red;
-  width: 50%;
+  /* width: 50%;
   margin-left : 25%;
-  font-size: 20px;
+  font-size: 20px; */
 }
 .UserFormSuccess {
   color: green;
-  width: 50%;
+  /* width: 50%;
   margin-left : 25%;
-  font-size: 20px;
+  font-size: 20px; */
 }
 
 /* createAppointment Form */

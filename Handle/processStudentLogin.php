@@ -18,14 +18,19 @@ if(($_SERVER['REQUEST_METHOD']) == 'POST' && (!empty($_POST['StudentLogin']))) {
   if($count == 1) {
     $Password = $row['StudentPassword'];
     $Name = $row['StudentName'];
+    $DOB = $row['DOB'];
+    $Phone = $row['Phone'];
+    $CourseTaken=$row['CourseTaken'];
     $StudentCourses= $row['StudentCourses'];
     $formDBLink->close();
     // if((password_verify($AdminPassword, $HashedPassword))) {
     if ($Password == $StudentPassword) {
       $_SESSION['StudentEmail'] = $StudentEmail;
       $_SESSION['StudentName'] = $Name;
-      $_SESSION['FacultyInitial'] = $Initial;
-      $_SESSION['FacultyCourses'] = $FacultyCourses;
+      $_SESSION['DOB'] = $DOB;
+      $_SESSION['Phone'] = $Phone;
+      $_SESSION['CourseTaken'] = $CourseTaken;
+      $_SESSION['StudentCourses'] = $StudentCourses;
       header("Location: index.php");
     } else {
       $LoginMsg = '<p>Incorrect Password!</p>';

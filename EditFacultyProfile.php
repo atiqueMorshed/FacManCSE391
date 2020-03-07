@@ -1,3 +1,9 @@
+<?php include "Handle/processEditFacultyProfile.php";
+if(!(isset($_SESSION['FacultyEmail']))) {
+  header('Location: index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,12 +30,6 @@
 </head>
 
 <body>
-<%
-    if(session.getAttribute("USER") != "2") {
-        response.sendRedirect("index.jsp");
-    }
-%>
-
   <div class="containerMinHeight">
     <div class="mainHeight">
         <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
@@ -52,39 +52,49 @@
                     <div class="alert alert-info absolue center" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
                 </div>
             </div>
-            <form action="EditFacultyProfile" method="post">
+            <div class="height150"></div>
+            <form action="EditFacultyProfile.php" method="post">
                 <div class="form-row profile-row">
                     <div class="col-md-8">
                         <h1>Profile </h1>
                         <hr>
                         <div class="form-row">
                             <div class="col-sm-12 col-md-6">
-<%--                                value="<%= session.getAttribute("NAME") %>"--%>
-                                <div class="form-group"><label>Name </label><input class="form-control" type="text" name="name" pattern=".{6,}" ></div>
+                                <div class="form-group"><label>Name </label><input class="form-control" type="text" required name="name" pattern=".{6,}" ></div>
                             </div>
                             <div class="col-sm-12 col-md-6">
-<%--                                value="<%= session.getAttribute("INITIAL") %>"--%>
-                                <div class="form-group"><label>Initial </label><input class="form-control" type="text" name="initial"></div>
+                                <div class="form-group"><label>Initial </label><input class="form-control" type="text" required name="initial"></div>
                             </div>
                         </div>
-                        <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled autocomplete="off" required="" name="email" value="<%= session.getAttribute("FACULTYEMAIL") %>"></div>
+                        <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled autocomplete="off" required name="email" value="<?php echo $_SESSION['FacultyEmail']?>"></div>
                         <div class="form-row">
                             <div class="col-sm-12 col-md-6">
-                                <div class="form-group"><label>New Password </label><input class="form-control" type="password" pattern=".{8,}" name="passwordX"></div>
+                                <div class="form-group"><label>New Password </label><input class="form-control" required type="password" pattern=".{8,}" name="password"></div>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <div class="form-group"><label>Confirm Password </label><input class="form-control" type="password" pattern=".{8,}" name="cpasswordX"></div>
+                                <div class="form-group"><label>Confirm Password </label><input class="form-control" required type="password" pattern=".{8,}" name="conpassword"></div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit">Update</button></div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                  <?php
+                                    if (isset($Msg)) {
+                                      echo $Msg;
+                                    }
+                                  ?>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-md-6 content-right">
+                              <button class="btn btn-danger form-btn" type="submit" name="UpdateFacultyProfile" value="Update">Update</button>
+                            </div>
                         </div>
 
                     </div>
+
                 </div>
             </form>
         </div>
-        <p class="text-center text-danger" name="error"> ${ErrorMsg} </p>
         <div class="height150"></div>
       </div>
     </div>
