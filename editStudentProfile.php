@@ -1,3 +1,8 @@
+<?php include "Handle/processEditStudentProfile.php";
+if(!(isset($_SESSION['StudentEmail']))) {
+  header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,11 +29,6 @@
 </head>
 
 <body>
-<%
-    if(session.getAttribute("USER") != "3") {
-        response.sendRedirect("index.jsp");
-    }
-%>
   <div class="containerMinHeight">
     <div class="mainHeight">
       <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
@@ -37,7 +37,7 @@
                   <ul class="nav navbar-nav ml-auto">
                       <li class="nav-item" role="presentation"></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.jsp">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.php">Profile</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
                   </ul>
               </div>
@@ -50,24 +50,50 @@
                   <div class="alert alert-info absolue center" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
               </div>
           </div> -->
-          <form>
+          <form action="EditStudentProfile.php" method="post">
               <div class="form-row profile-row">
                   <div class="col-md-8">
                       <h1>Profile </h1>
                       <hr>
                       <div class="form-row">
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Name </label><input class="form-control" type="text" name="name" value="Student One"></div>
+                              <div class="form-group"><label>Name </label><input class="form-control" type="text" name="name" pattern="[a-zA-Z ]{6,15}"></div>
                           </div>
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Password </label><input class="form-control" type="text" name="initial" value="********"></div>
+                              <div class="form-group"><label>DOB </label><input class="form-control" type="date" name="dob" min="1990-01-01" max="2000-01-01" ></div>
                           </div>
                       </div>
-                      <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled name="email" value="student1@gmail.com"></div>
                       <div class="form-row">
-                          <div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="studentProfileUpdate">Update</button></div>
+                          <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label>Email </label><input class="form-control" disabled type="email" name="email" value="<?php echo $_SESSION['StudentEmail']; ?>"></div>
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group"><label>Phone </label><input class="form-control" type="text" name="phone" pattern="\+8801[5-7]{1}\d{8}" placeholder="+8801711111111"></div>
+                          </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group"><label>Password </label><input class="form-control" type="password" name="password" pattern=".{8,}" placeholder="Min Length is 8"></div>
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group"><label>Confirm Password </label><input class="form-control" type="password" name="cpassword" pattern=".{8,}" placeholder="Must match parent"></div>
+                          </div>
                       </div>
 
+                      <div class="form-row">
+                          <div class="col-sm-12 col-md-6">
+                              <div class="form-group">
+                                <?php
+                                  if (isset($Msg)) {
+                                    echo $Msg;
+                                  }
+                                ?>
+                              </div>
+                          </div>
+                          <div class="col-md-12 col-md-6 content-right">
+                            <div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="UpdateStudentProfile" value="Update" >Update</button></div>
+                          </div>
+                      </div>
                       <hr>
                   </div>
               </div>

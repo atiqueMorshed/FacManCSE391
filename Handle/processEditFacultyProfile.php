@@ -2,6 +2,9 @@
 if(!(isset($_SESSION))) {
   include "session.php";
 }
+if(!(isset($_SESSION['FacultyEmail']))) {
+  header('Location: index.php');
+}
 // php code for on page validation msg
   //chk POST & submit!empty [START]
   if(($_SERVER['REQUEST_METHOD'] == 'POST') && (!empty($_POST['UpdateFacultyProfile']))) {

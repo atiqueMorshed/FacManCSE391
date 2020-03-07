@@ -1,4 +1,9 @@
-<?php include "Handle/processEditFacultyProfile.php";?>
+<?php include "Handle/processEditFacultyProfile.php";
+if(!(isset($_SESSION['FacultyEmail']))) {
+  header('Location: index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
