@@ -68,7 +68,7 @@ if(!(isset($_SESSION['StudentEmail']))) {
                             <div class="form-group"><label>Email </label><input class="form-control" disabled type="email" name="email" value="<?php echo $_SESSION['StudentEmail']; ?>"></div>
                           </div>
                           <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Phone </label><input class="form-control" type="text" name="phone" pattern="\+8801[5-7]{1}\d{8}" placeholder="+8801711111111"></div>
+                              <div class="form-group"><label>Phone </label><input class="form-control" type="phone" name="phone" pattern="\+8801[5-7]{1}\d{8}" placeholder="+8801711111111"></div>
                           </div>
                       </div>
                       <div class="form-row">

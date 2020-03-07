@@ -1,4 +1,4 @@
-<?php include "Handle/processStudentProfile.php";
+<?php include "Handle/processAddStudentCourse2.php";
   if(!(isset($_SESSION['StudentEmail']))) {
     header('Location: index.php');
   }
@@ -50,88 +50,87 @@
                   <div class="alert alert-info absolue center" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
               </div>
           </div> -->
-          <form>
+          <form action="AddStudentCourse2.php" method="post">
               <div class="form-row profile-row">
                   <div class="col-md-8">
-                      <h1>Profile </h1>
+                      <h1>Add Course</h1>
                       <hr>
                       <div class="form-row">
-                          <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="<?php echo $_SESSION['StudentName']; ?>"></div>
-                          </div>
-                          <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>DOB </label><input class="form-control" disabled type="date" name="dob" value="<?php echo $_SESSION['DOB']; ?>"></div>
-                          </div>
                       </div>
                       <div class="form-row">
                           <div class="col-sm-12 col-md-6">
-                            <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled name="email" value="<?php echo $_SESSION['StudentEmail']; ?>"></div>
+                            <div class="input-group-append">
+                              <select class="browser-default custom-select" name="CourseIDDropdown">
+                                <?php
+                                $StudentEmail = $_SESSION['StudentEmail'];
+                                if($_POST['CourseIDDropdown'] > 0) {
+                                  $CourseID = $_POST['CourseIDDropdown'];
+
+                                // include("Handle/loginDB.php");
+                                // $formDBLink = mysqli_connect($host,$user,$password,$dbname);
+                                // $sqlQuery="SELECT * FROM facourses";
+                                // $result=$formDBLink->query($sqlQuery);
+                                // $i=1;
+                                // while($row=$result->fetch_assoc()) {
+                                //   $CourseID = $row['CourseID'];
+                                ?>
+                                <option selected value="<?php echo $CourseID ?>">CSE<?php echo $CourseID ?></option>
+                              </select>
+                              <?php
+                              ?>
+                              <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
+                            </div>
                           </div>
-                          <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Phone </label><input class="form-control" disabled type="text" name="phone" value="<?php echo $_SESSION['Phone']; ?>"></div>
-                          </div>
+                            <div class="col-sm-12 col-md-6">
+                              <div class="input-group-append">
+                                <select class="browser-default custom-select" name="CourseSectionDropdown">
+                                  <option selected value="0">Section</option>
+                                  <!--  -->
+                                  <?php
+                                    include("Handle/loginDB.php");
+                                    $formDBLink = mysqli_connect($host,$user,$password,$dbname);
+                                    $sqlQuery="SELECT * FROM facourses WHERE CourseID = '$CourseID'";
+                                    $result=$formDBLink->query($sqlQuery);
+                                    while($row=$result->fetch_assoc()) {
+                                      $Section = $row['Section'];
+                                      if($row['TotalStudents'] < $row['Seat']) {
+                                  ?>
+                                  <option value="<?php echo $Section; ?>"><?php echo $Section; ?></option>
+                                  <?php
+                                      } else {
+                                          // $_SESSION['ErrMsg'] = '<p class="UserFormError">No seats available.</p>';
+                                          header('Location: AddStudentCourse.php');
+                                      }
+                                    }
+                                    mysqli_close($formDBLink);
+                                  ?>
+                                  <!-- <option value="1">Name</option> -->
+                                </select>
+                                <!-- <button class="btn btn-outline-secondary" type="button" >Search</button> -->
+                              </div>
+                            </div>
+                            <?php
+                              if(isset($Msg)) echo $Msg;
+                              if(isset($_SESSION['Msg'])) echo $_SESSION['Msg'];
+                            ?>
+                            <?php
+                          } else {
+                            $_SESSION['ErrMsg'] = '<p class="UserFormError">Select Course.</p>';
+                              header('Location: AddStudentCourse.php');
+                          }
+                            ?>
                       </div>
-                      <!-- <div class="form-row">
-                          <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Name </label><input class="form-control" disabled type="text" name="name" value="<?php echo $_SESSION['StudentName']; ?>"></div>
-                          </div>
-                          <div class="col-sm-12 col-md-6">
-                              <div class="form-group"><label>Password </label><input class="form-control" disabled type="text" name="DOB" value="<?php echo $_SESSION['DOB']; ?>"></div>
-                          </div>
-                      </div> -->
+
                       <div class="form-row">
-                          <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="EditStudentProfile.php">Edit</a></div>
+                          <div class="col-md-12 content-right"><button type="submit" name="AddStudentCourse" value="Add" class="btn btn-danger form-btn">Add Course</button></div>
                       </div>
-                      <hr>
-                      <div class="studentCoursesTaken">
-                        <table class="table">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Course</th>
-                              <th scope="col">Section</th>
-                              <th scope="col">Faculty</th>
-                              <th scope="col">Day</th>
-                              <th scope="col">Time</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>CSE110</td>
-                              <td>1</td>
-                              <td>faculty@gmail.com</td>
-                              <td>SUN-TUE</td>
-                              <td>09.00AM-10.20AM</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>CSE110</td>
-                              <td>2</td>
-                              <td>faculty@gmail.com</td>
-                              <td>SUN-TUE</td>
-                              <td>09.00AM-10.20AM</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>CSE111</td>
-                              <td>1</td>
-                              <td>faculty@gmail.com</td>
-                              <td>SUN-TUE</td>
-                              <td>09.00AM-10.20AM</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="form-row">
-                          <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="AddStudentCourse.php">Add Course</a></div>
-                      </div>
+                      <!-- <hr> -->
 
                   </div>
               </div>
           </form>
       </div>
-        <div class="height150"></div>
+        <!-- <div class="height150"></div> -->
       </div>
     </div>
     <footer class="bg-black footerBottom">

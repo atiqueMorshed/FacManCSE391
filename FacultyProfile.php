@@ -66,8 +66,12 @@
                           </div>
                       </div>
                       <div class="form-group"><label>Email </label><input class="form-control" type="email" disabled autocomplete="off" required="" name="email" value="<?php echo $_SESSION['FacultyEmail']?>"></div>
+                      <!-- <div class="form-row">
+
+                      </div> -->
                       <div class="form-row">
-                            <div class="col-md-12 content-right"><a class="btn btn-danger form-btn" href="EditFacultyProfile.php">Edit</a></div>
+                            <div class="col-sm-12 col-md-6 content-right"><a class="btn btn-danger form-btn" href="AddCourseFaculty.php">Add Course</a></div>
+                            <div class="col-sm-12 col-md-6 content-right"><a class="btn btn-danger form-btn" href="EditFacultyProfile.php">Edit</a></div>
                       </div>
                   </div>
 
