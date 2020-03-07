@@ -30,7 +30,7 @@ if(!(isset($_SESSION['StudentEmail']))) {
       $errUser = '<p class="UserFormError">Password has to be atleast 8 chars.</p>';
       $hasError = true;
     }
-    else if(strlen($Phone) < 14) {
+    else if(strlen($Phone) != 14) {
       $errUser = '<p class="UserFormError">Incorrect Phone.</p>';
       $hasError = true;
     }

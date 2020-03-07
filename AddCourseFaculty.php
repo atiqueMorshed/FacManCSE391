@@ -1,3 +1,6 @@
+<?php include "Handle/processAddCourseFaculty.php";
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,12 +27,6 @@
 </head>
 
 <body>
-<%
-    if(session.getAttribute("USER") != "2") {
-        response.sendRedirect("index.jsp");
-    }
-%>
-
 <div class="containerMinHeight">
     <div class="mainHeight">
         <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
@@ -52,10 +49,10 @@
                     <div class="alert alert-info absolue center" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
                 </div>
             </div>
-            <form action="AddCourseFaculty" method="post">
+            <form action="AddCourseFaculty.php" method="post">
                 <div class="form-row profile-row">
                     <div class="col-md-8">
-<%--                        <div class="addFacultyCourseForm">--%>
+                        <div class="addFacultyCourseForm">
                             <h1>Add Courses</h1>
                             <hr>
                             <div class="form-row">
@@ -76,7 +73,7 @@
                                             <option value="360">CSE360</option>
                                         </select>
                                     </div>
-<%--                                    <div class="form-group"><label>CourseID </label><input class="form-control" type="text" name="courseID"></div>--%>
+                                    <!-- <div class="form-group"><label>CourseID </label><input class="form-control" type="text" name="courseID"></div> -->
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
@@ -95,7 +92,7 @@
                                             <option value="10">10</option>
                                         </select>
                                     </div>
-<%--                                    <div class="form-group"><label>Section </label><input class="form-control" type="text" name="section"></div>--%>
+                                    <!-- <div class="form-group"><label>Section </label><input class="form-control" type="text" name="section"></div> -->
                                 </div>
                             </div>
                             <div class="form-row">
@@ -109,7 +106,7 @@
                                             <option value="3">SAT-THU</option>
                                         </select>
                                     </div>
-<%--                                    <div class="form-group"><label>Day </label><input class="form-control" type="text" name="Day"></div>--%>
+                                    <!-- <div class="form-group"><label>Day </label><input class="form-control" type="text" name="Day"></div> -->
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
@@ -123,7 +120,7 @@
                                             <option value="2">2.00-3.20</option>
                                         </select>
                                     </div>
-<%--                                    <div class="form-group"><label>Time </label><input class="form-control" type="text" name="Time"></div>--%>
+                                    <!-- <div class="form-group"><label>Time </label><input class="form-control" type="text" name="Time"></div> -->
                                 </div>
                             </div>
                             <div class="form-row">
@@ -141,37 +138,33 @@
                                     </div>
                                 </div>
                             </div>
-<%--                                <div class="form-group"><label>Max Seat </label><input class="form-control" type="number" pattern="[0-9]{2}" name="seat"></div>--%>
-
-                            <!-- <div class="form-row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="form-group"><label>New Password </label><input class="form-control" type="password" name="password"></div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="form-group"><label>Confirm Password </label><input class="form-control" type="text" name="confirmPassword"></div>
-                                </div>
-                            </div> -->
                             <div class="form-row">
-                                <div class="col-md-12 content-right"><button class="btn btn-danger form-btn" type="submit" name="addCourseButton">Add</button></div>
+                              <div class="col-md-12 content-right">
+                                <button class="btn btn-danger form-btn" type="submit" name="AddCourseFaculty" value="AddCourse">Add</button>
+                              </div>
+                              <div class="col-md-12">
+                                <?php
+                                  if(isset($_SESSION['ErrorMsg'])) echo $_SESSION['ErrorMsg'];
+                                ?>
+                              </div>
                             </div>
                             <hr>
-<%--                        </div>--%>
+                        </div>
                     </div>
                 </div>
             </form>
-            <p class="text-center text-danger" name="error"> ${ErrorMsg} </p>
+            <!-- <p class="text-center text-danger" name="error"> ${ErrorMsg} </p> -->
         </div>
 
         <div class="height150"></div>
     </div>
 </div>
-
-
 <footer class="bg-black footerBottom">
     <div class="container">
         <p class="text-center text-white m-0 small footerContent">Copyright&nbsp;© FacMan 2020</p>
     </div>
 </footer>
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.js"></script>

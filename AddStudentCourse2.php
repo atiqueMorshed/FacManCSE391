@@ -110,20 +110,30 @@
                               </div>
                             </div>
                             <?php
-                              if(isset($Msg)) echo $Msg;
-                              if(isset($_SESSION['Msg'])) echo $_SESSION['Msg'];
-                            ?>
-                            <?php
                           } else {
-                            $_SESSION['ErrMsg'] = '<p class="UserFormError">Select Course.</p>';
+                            $_SESSION['ErrorMsg'] = '<p class="UserFormError">Select Course.</p>';
                               header('Location: AddStudentCourse.php');
                           }
                             ?>
                       </div>
+                        <div class="form-row" style="margin-top:20px;">
+                          <div class="col-md-12 content-right">
+                            <?php
+                              if(isset($_SESSION['ErrorMsg'])) echo $_SESSION['ErrorMsg'];
+                              $_SESSION['ErrorMsg']="";
+                            ?>
+                          </div>
 
-                      <div class="form-row">
-                          <div class="col-md-12 content-right"><button type="submit" name="AddStudentCourse" value="Add" class="btn btn-danger form-btn">Add Course</button></div>
-                      </div>
+                          <div class="col-md-12 content-right">
+                            <button type="submit" name="AddStudentCourse" value="Add" class="btn btn-danger form-btn">Add Course</button>
+                          </div>
+                        </div>
+                        <div class="form-row" style="margin-top:20px;">
+                          <div class="col-md-12 content-right">
+                            <a href="AddStudentCourse.php">Go Back</a>
+                          </div>
+                        </div>
+
                       <!-- <hr> -->
 
                   </div>
