@@ -74,6 +74,7 @@
                           if(isset($_SESSION['FacultyEmail'])) {
                       ?>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyProfile.php">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="Chat.php">Chat</a></li>
                       <?php
                           }
                       ?>
@@ -82,6 +83,7 @@
                           if(isset($_SESSION['StudentEmail'])) {
                       ?>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.php">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="Chat.php">Chat</a></li>
                       <?php
                           }
                       ?>

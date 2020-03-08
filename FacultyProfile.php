@@ -39,6 +39,7 @@
                       <li class="nav-item" role="presentation"></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyProfile.php">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="Chat.php">Chat</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
 
                   </ul>
