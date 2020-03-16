@@ -38,6 +38,7 @@
                       <li class="nav-item" role="presentation"></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="StudentProfile.php">Profile</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="Chat.php">Chat</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
                   </ul>
               </div>
@@ -90,36 +91,48 @@
                               <th scope="col">#</th>
                               <th scope="col">Course</th>
                               <th scope="col">Section</th>
-                              <th scope="col">Faculty</th>
                               <th scope="col">Day</th>
                               <th scope="col">Time</th>
+                              <th scope="col">Faculty Profile/Msg</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>CSE110</td>
-                              <td>1</td>
-                              <td>faculty@gmail.com</td>
-                              <td>SUN-TUE</td>
-                              <td>09.00AM-10.20AM</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>CSE110</td>
-                              <td>2</td>
-                              <td>faculty@gmail.com</td>
-                              <td>SUN-TUE</td>
-                              <td>09.00AM-10.20AM</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>CSE111</td>
-                              <td>1</td>
-                              <td>faculty@gmail.com</td>
-                              <td>SUN-TUE</td>
-                              <td>09.00AM-10.20AM</td>
-                            </tr>
+                            <?php
+                              include "Handle/loginDB.php";
+                              include "Handle/processFacultyProfileDatabase.php";
+                              $StudentCourses = $_SESSION['StudentCourses'];
+                                $formDBLink = mysqli_connect($host,$user,$password,$dbname);
+                                $sqlQuery="SELECT * FROM stcourses WHERE StudentCourses='$StudentCourses'";
+                                $result=$formDBLink->query($sqlQuery);
+                                $i=0;
+                                while($row=$result->fetch_assoc()) {
+                                  $i++;
+                                  $FCID = $row['FCID'];
+                                  $sqlQuery2 = "SELECT * FROM facourses WHERE FCID = '$FCID'";
+                                  $result2 = $formDBLink->query($sqlQuery2);
+                                  $row2 = $result2->fetch_array(MYSQLI_ASSOC);
+                                  $count = mysqli_num_rows($result2);
+                                  if($count == 1) {
+                                    $CourseID = $row2['CourseID'];
+                                    $Section = $row2['Section'];
+                                    $Day = findDay($row2['Day']);
+                                    $Time = findTime($row2['Time']);
+                                    $FacultyCourses = $row2['FacultyCourses'];
+
+                            ?>
+                              <tr>
+                                <th scope="row"><?php echo $i ?></th>
+                                <td>CSE<?php echo $CourseID ?></td>
+                                <td><?php echo $Section ?></td>
+                                <td><?php echo $Day ?></td>
+                                <td><?php echo $Time ?></td>
+                                <td><a href="PublicFacultyProfile.php?FacultyCourses=<?php echo $FacultyCourses ?>"><img src="assets/img/message2.png" height="20px" alt=""></a></td>
+                              </tr>
+                            <?php
+                                }
+                              }
+                              $formDBLink->close();
+                            ?>
                           </tbody>
                         </table>
                       </div>
