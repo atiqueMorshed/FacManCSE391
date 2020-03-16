@@ -132,54 +132,79 @@
       </header>
       <div class="height150"></div>
       <div class="TableWithSearch">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <select class="browser-default custom-select">
-              <option selected>Filter</option>
-              <option value="1">Name</option>
-              <option value="2">Course</option>
-            </select>
-            <button class="btn btn-outline-secondary" type="button">Search</button>
+        <form action="" method="get">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" aria-describedby="basic-addon2" name="SearchField">
+            <!-- <button class="btn btn-outline-secondary" type="button">Search</button> -->
+            <!-- <div class="input-group-append">
+              <select class="browser-default custom-select">
+                <option selected>Filter</option>
+                <option value="1">Name</option>
+                <option value="2">Course</option>
+              </select>
+              <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div> -->
           </div>
-        </div>
+        </form>
+
         <div class="FacultyTableDatabase">
           <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Initial</th>
                 <th scope="col">Course</th>
                 <th scope="col">Section</th>
+                <th scope="col">Day</th>
+                <th scope="col">Time</th>
               </tr>
             </thead>
             <tbody>
+              <?php
+              $Search = "none";
+              if(isset($_GET['SearchField']))
+                $Search = $_GET['SearchField'];
+                $word = "CSE";
+                if (strpos($Search, $word) !== false) {
+                  $Search = str_replace("CSE", "", $Search);
+                }
+                $word = "cse";
+                if (strpos($Search, $word) !== false) {
+                  $Search = str_replace("cse", "", $Search);
+                }
+                include("Handle/loginDB.php");
+                include "Handle/processFacultyProfileDatabase.php";
+                $formDBLink = mysqli_connect($host, $user, $password, $dbname);
+                if($Search == "none") {
+                  $sqlQuery = "SELECT faculty.FacultyName, faculty.FacultyEmail, faculty.FacultyInitial, faculty.FacultyCourses, facourses.FacultyCourses, facourses.CourseID, facourses.Section, facourses.Day, facourses.Time, facourses.TotalStudents, facourses.ActiveStatus, facourses.FCID FROM faculty RIGHT JOIN facourses ON faculty.FacultyCourses = facourses.FacultyCourses ORDER BY facourses.CourseID";
+                } else {
+                  $sqlQuery = "SELECT faculty.FacultyName, faculty.FacultyEmail, faculty.FacultyInitial, faculty.FacultyCourses, facourses.FacultyCourses, facourses.CourseID, facourses.Section, facourses.Day, facourses.Time, facourses.TotalStudents, facourses.ActiveStatus, facourses.FCID FROM faculty RIGHT JOIN facourses ON faculty.FacultyCourses = facourses.FacultyCourses WHERE facourses.CourseID LIKE '".$Search."' OR faculty.FacultyName LIKE '".$Search."' OR faculty.FacultyInitial LIKE  '".$Search."' ORDER BY facourses.CourseID";
+                }
+                $result = $formDBLink->query($sqlQuery);
+                while($row = $result->fetch_assoc()) {
+                  $Name = $row['FacultyName'];
+                  $Email = $row['FacultyEmail'];
+                  $Initial = $row['FacultyInitial'];
+                  $CourseID = $row['CourseID'];
+                  $Section = $row['Section'];
+                  $Day = findDay($row['Day']);
+                  $Time = findTime($row['Time']);
+                  $FacultyCourses = $row['FacultyCourses'];
+              ?>
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td><a href="FacultyProfile.jsp">mark@bracu.ac.bd</a></td>
-                <td>MRK</td>
-                <td>CSE110</td>
-                <td>1</td>
+                <td><?php echo $Name ?></td>
+                <th scope="row"><a href="PublicFacultyProfile.php?FacultyCourses=<?php echo $FacultyCourses ?>"><?php echo $Email ?></a></th>
+                <td><?php echo $Initial ?></td>
+                <td><?php echo $CourseID ?></td>
+                <td><?php echo $Section ?></td>
+                <td><?php echo $Day ?></td>
+                <td><?php echo $Time ?></td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>jacob@bracu.ac.bd</td>
-                <td>JKB</td>
-                <td>CSE220</td>
-                <td>3</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>larry@bracu.ac.bd</td>
-                <td>LRY</td>
-                <td>CSE310</td>
-                <td>1</td>
-              </tr>
+              <?php
+                }
+                $formDBLink->close();
+              ?>
             </tbody>
           </table>
         </div>
