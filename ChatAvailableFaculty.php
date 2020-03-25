@@ -72,23 +72,24 @@ if($SenderGuy == 'Student') {
     $FCID = $row1['FCID'];
     $sqlQuery2 = "SELECT * FROM stcourses WHERE FCID='$FCID'";
     $result2=$formDBLink->query($sqlQuery2);
-    $row2 = $result2->fetch_array(MYSQLI_ASSOC);
-    $count = mysqli_num_rows($result2);
-    if($count == 1) {
+    // $row2 = $result2->fetch_array(MYSQLI_ASSOC);
+    // $count = mysqli_num_rows($result2);
+    // if($count == 1) {
+    while($row2=$result2->fetch_assoc()) {
       $StudentCourses = $row2['StudentCourses'];
       if(!(in_array($StudentCourses, $DuplicateChecker))) {
       $DuplicateChecker[] = $StudentCourses;
-      $sqlQuery2 = "SELECT DISTINCT * FROM student WHERE StudentCourses='$StudentCourses'";
-      $result2=$formDBLink->query($sqlQuery2);
-      $row2 = $result2->fetch_array(MYSQLI_ASSOC);
-      $count = mysqli_num_rows($result2);
+      $sqlQuery3 = "SELECT DISTINCT * FROM student WHERE StudentCourses='$StudentCourses'";
+      $result3=$formDBLink->query($sqlQuery3);
+      $row3 = $result3->fetch_array(MYSQLI_ASSOC);
+      $count = mysqli_num_rows($result3);
       if($count == 1) {
-        $StudentName = $row2['StudentName'];
-        $StudentEmail = $row2['StudentEmail'];
-        $Phone = $row2['Phone'];
+        $StudentName = $row3['StudentName'];
+        $StudentEmail = $row3['StudentEmail'];
+        $Phone = $row3['Phone'];
 
-        $sqlQuery2 = "SELECT * FROM messages WHERE FacultyCourses='$FacultyCourses' AND StudentCourses = $StudentCourses ORDER BY MessageDate DESC";
-        $result2=$formDBLink->query($sqlQuery2);
+        $sqlQuery4 = "SELECT * FROM messages WHERE FacultyCourses='$FacultyCourses' AND StudentCourses = $StudentCourses ORDER BY MessageDate DESC";
+        $result4=$formDBLink->query($sqlQuery4);
         $LastMessageDate = "N/A";
         // while($row2=$result2->fetch_assoc()) {
         //   $LastMessageDate = $row2['MessageDate'];
@@ -112,7 +113,7 @@ if($SenderGuy == 'Student') {
     }
   }
   $formDBLink->close();
-  
+
 }
 
 ?>
