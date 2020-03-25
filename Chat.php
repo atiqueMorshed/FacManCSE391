@@ -141,12 +141,54 @@
                   </div>";
             mysqli_close($formDBLink);
           }
+        } else if(isset($_GET['FCID']) && isset($_SESSION['FacultyCourses'])) {
+            $FacultyCourses = $_SESSION['FacultyCourses'];
+            $FCID = $_GET['FCID'];
+            $formInfoQuery = "INSERT INTO messages(Sender, FCID, Message)
+            VALUES (
+              '".$FacultyCourses."',
+              '".$FCID."',
+              '".$msg."'
+            )";
+            if($Result = mysqli_query($formDBLink, $formInfoQuery)) {
+              mysqli_close($formDBLink);
+              ?>
+                <script>
+                  window.location.href = "chat.php?FCID=<?php echo $FCID ?>";
+                </script>
+              <?php
+            } else {
+              echo "<div class='alert alert-danger'>
+                      <strong><center>Error Sending Message!</center></strong>
+                    </div>";
+              mysqli_close($formDBLink);
+            }
+        } else if(isset($_GET['FCID']) && isset($_SESSION['StudentCourses'])) {
+            $StudentCourses = $_SESSION['StudentCourses'];
+            $FCID = $_GET['FCID'];
+            $formInfoQuery = "INSERT INTO messages(Sender, FCID, Message)
+            VALUES (
+              '".$StudentCourses."',
+              '".$FCID."',
+              '".$msg."'
+            )";
+            if($Result = mysqli_query($formDBLink, $formInfoQuery)) {
+              mysqli_close($formDBLink);
+              ?>
+                <script>
+                  window.location.href = "chat.php?FCID=<?php echo $FCID ?>";
+                </script>
+              <?php
+            } else {
+              echo "<div class='alert alert-danger'>
+                      <strong><center>Error Sending Message!</center></strong>
+                    </div>";
+              mysqli_close($formDBLink);
+            }
         }
       }
-      }
+    }
       ?>
-
-
     </div>
   </div>
 </div>
@@ -155,7 +197,7 @@
 <div class="height150"></div>
     <footer class="py-5 bg-black footerBottom">
         <div class="container">
-            <p class="text-center text-white m-0 small">Copyright&nbsp;© FacMan 2018</p>
+            <p class="text-center text-white m-0 small">Copyright&nbsp;© FacMan 2020</p>
         </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
