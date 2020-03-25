@@ -11,6 +11,17 @@ if(isset($_SESSION['FacultyCourses'])) {
 include "Handle/loginDB.php";
 $formDBLink = mysqli_connect($host, $user, $password, $dbname);
 if($SenderGuy == 'Student') {
+  ?>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+    <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+      <div class="media-body ml-4">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <h1 class="mb-0">Individuals: </h1>
+        </div>
+      </div>
+    </div>
+  </a>
+  <?php
   $DuplicateChecker = array();
   $StudentCourses = $_SESSION['StudentCourses'];
   $sqlQuery1 = "SELECT * FROM stcourses WHERE StudentCourses='$StudentCourses'";
@@ -60,8 +71,64 @@ if($SenderGuy == 'Student') {
       }
     }
   }
+
+  //GroupChat
+  ?>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+    <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+      <div class="media-body ml-4">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <h1 class="mb-0">Groups: </h1>
+        </div>
+      </div>
+    </div>
+  </a>
+  <?php
+  $sqlQuery1 = "SELECT * FROM stcourses WHERE StudentCourses ='$StudentCourses'";
+  $result1=$formDBLink->query($sqlQuery1);
+
+  while($row1=$result1->fetch_assoc()) {
+    $FCID = $row1['FCID'];
+    $sqlQuery2 = "SELECT * FROM facourses WHERE FCID = '$FCID'";
+    $result2 = $formDBLink->query($sqlQuery2);
+    $i = 0;
+    while($row2 = $result2->fetch_assoc()) {
+      $i++;
+      $CourseID = $row2['CourseID'];
+      $Section = $row2['Section'];
+      $TotalStudents = $row2['TotalStudents'];
+
+      ?>
+      <a href="Chat.php?FCID=<?php echo $FCID ?>" id="<?php echo $i ?>" onclick="toggleclass(<?php echo $i ?>)" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+        <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+          <div class="media-body ml-4">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <h6 class="mb-0">CSE<?php echo $CourseID ?></h6>
+              <small class="small font-weight-bold">Section: <?php echo $Section ?></small>
+              <small class="small font-weight-bold">Group</small>
+            </div>
+            <p class="font-italic text-muted mb-0 text-small">Total: <?php echo $TotalStudents ?></p>
+          </div>
+        </div>
+      </a>
+      <?php
+    }
+  }
   $formDBLink->close();
+
 } else if($SenderGuy == 'Faculty') {
+  //Individual Students
+  ?>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+    <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+      <div class="media-body ml-4">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <h1 class="mb-0">Individuals: </h1>
+        </div>
+      </div>
+    </div>
+  </a>
+  <?php
   $DuplicateChecker = array();
   $FacultyCourses = $_SESSION['FacultyCourses'];
   $sqlQuery1 = "SELECT * FROM facourses WHERE FacultyCourses='$FacultyCourses'";
@@ -91,10 +158,10 @@ if($SenderGuy == 'Student') {
         $sqlQuery4 = "SELECT * FROM messages WHERE FacultyCourses='$FacultyCourses' AND StudentCourses = $StudentCourses ORDER BY MessageDate DESC";
         $result4=$formDBLink->query($sqlQuery4);
         $LastMessageDate = "N/A";
-        // while($row2=$result2->fetch_assoc()) {
-        //   $LastMessageDate = $row2['MessageDate'];
-        //   break;
-        // }
+         // while($row2=$result4->fetch_assoc()) {
+         //   $LastMessageDate = $row4['MessageDate'];
+         //   break;
+         // }
       }
   ?>
   <a href="Chat.php?StudentCourses=<?php echo $StudentCourses ?>" id="<?php echo $i ?>" onclick="toggleclass(<?php echo $i ?>)" class="list-group-item list-group-item-action list-group-item-light rounded-0">
@@ -112,8 +179,44 @@ if($SenderGuy == 'Student') {
       }
     }
   }
+  //GroupChat
+  ?>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+    <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+      <div class="media-body ml-4">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <h1 class="mb-0">Groups: </h1>
+        </div>
+      </div>
+    </div>
+  </a>
+  <?php
+  $sqlQuery1 = "SELECT * FROM facourses WHERE FacultyCourses='$FacultyCourses'";
+  $result1=$formDBLink->query($sqlQuery1);
+  $i = 0;
+  while($row1=$result1->fetch_assoc()) {
+    $i++;
+    $CourseID = $row1['CourseID'];
+    $Section = $row1['Section'];
+    $FCID = $row1['FCID'];
+    $TotalStudents = $row1['TotalStudents'];
+    $FCID = $row1['FCID'];
+
+    ?>
+    <a href="Chat.php?FCID=<?php echo $FCID ?>" id="<?php echo $i ?>" onclick="toggleclass(<?php echo $i ?>)" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+      <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+        <div class="media-body ml-4">
+          <div class="d-flex align-items-center justify-content-between mb-1">
+            <h6 class="mb-0">CSE<?php echo $CourseID ?></h6>
+            <small class="small font-weight-bold">Section: <?php echo $Section ?></small>
+            <small class="small font-weight-bold">Group</small>
+          </div>
+          <p class="font-italic text-muted mb-0 text-small">Total: <?php echo $TotalStudents ?></p>
+        </div>
+      </div>
+    </a>
+    <?php
+  }
   $formDBLink->close();
-
 }
-
 ?>
