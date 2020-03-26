@@ -36,17 +36,17 @@
                       <?php
                           if(!(isset($_SESSION['AdminEmail']) || (isset($_SESSION['StudentEmail'])) || (isset($_SESSION['FacultyEmail'])))) {
                       ?>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyLogin.php">Faculty</a></li>
+                      <!-- <li class="nav-item" role="presentation"><a class="nav-link" href="FacultyLogin.php">Faculty</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="StudentLogin.php">Student</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="AdminLogin.php">Admin</a></li>
-                      <!-- <li class="nav-item dropdown">
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="AdminLogin.php">Admin</a></li> -->
+                      <li class="nav-item dropdown">
                           <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Login</a>
                           <div class="dropdown-menu" role="menu">
                               <a class="dropdown-item" role="presentation" href="FacultyLogin.php">Faculty</a>
                               <a class="dropdown-item" role="presentation" href="StudentLogin.php">Student</a>
                               <a class="dropdown-item" role="presentation" href="AdminLogin.php">Admin</a>
                           </div>
-                      </li> -->
+                      </li>
                       <?php
                           }
                       ?>
@@ -54,17 +54,17 @@
                       <?php
                           if(isset($_SESSION['AdminEmail'])) {
                       ?>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="AddFaculty.php">Add Faculty</a></li>
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="AddStudent.php">Add Student</a></li>
+                      <!-- <li class="nav-item" role="presentation"><a class="nav-link" href="AddFaculty.php">Add Faculty</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="AddStudent.php">Add Student</a></li> -->
 
-                      <!-- <li class="nav-item dropdown">
+                      <li class="nav-item dropdown">
                           <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Register</a>
                           <div class="dropdown-menu" role="menu">
-                              <a class="dropdown-item" role="presentation" href="AddFaculty.jsp">Faculty</a>
-                              <a class="dropdown-item" role="presentation" href="AddStudent.jsp">Student</a>
+                              <a class="dropdown-item" role="presentation" href="AddFaculty.php">Faculty</a>
+                              <a class="dropdown-item" role="presentation" href="AddStudent.php">Student</a>
                           </div>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
-                      </li> -->
+                        <!-- <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li> -->
+                      </li>
 
                       <?php
                           }
@@ -125,10 +125,10 @@
                   <h1 class="masthead-heading mb-0">Faculty Management</h1>
               </div>
           </div>
-          <div class="bg-circle-1 bg-circle"></div>
+          <!-- <div class="bg-circle-1 bg-circle"></div>
           <div class="bg-circle-2 bg-circle"></div>
           <div class="bg-circle-3 bg-circle"></div>
-          <div class="bg-circle-4 bg-circle"></div>
+          <div class="bg-circle-4 bg-circle"></div> -->
       </header>
       <div class="height150"></div>
       <div class="TableWithSearch">

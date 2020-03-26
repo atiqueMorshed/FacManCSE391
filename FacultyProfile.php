@@ -96,8 +96,8 @@
                               <th scope="col">Students</th>
                               <th scope="col">Active</th>
                               <th scope="col">Delete</th>
-                              <th scope="col">Deactivate/Activate</th>
-                              <th scope="col">Message All Students</th>
+                              <th scope="col">De/activate</th>
+                              <th scope="col">Message All</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -145,7 +145,7 @@
                                     }
                                 ?>
 
-                              <td><a href="FacultyProfileDatabaseMessageAll.php?FCID=<?php echo $FacultyCourses ?>"><img src="assets/img/message2.png" height="20px"></a></td>
+                              <td><a href="Chat.php?FCID=<?php echo $FCID ?>"><img src="assets/img/message2.png" height="20px"></a></td>
 
                             </tr>
 

@@ -37,8 +37,16 @@
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item" role="presentation"></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">Home</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="AddFaculty.php">Add Faculty</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="AddStudent.php">Add Student</a></li>
+                            <!-- <li class="nav-item" role="presentation"><a class="nav-link" href="AddFaculty.php">Add Faculty</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="AddStudent.php">Add Student</a></li> -->
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Register</a>
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" role="presentation" href="AddFaculty.php">Faculty</a>
+                                    <a class="dropdown-item" role="presentation" href="AddStudent.php">Student</a>
+                                </div>
+                              <!-- <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li> -->
+                            </li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
 
                         </ul>
