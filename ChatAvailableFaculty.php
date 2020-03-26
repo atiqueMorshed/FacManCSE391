@@ -135,7 +135,7 @@ if($SenderGuy == 'Student') {
   $result1=$formDBLink->query($sqlQuery1);
   $i=0;
   while($row1=$result1->fetch_assoc()) {
-    $i++;
+
     $FCID = $row1['FCID'];
     $sqlQuery2 = "SELECT * FROM stcourses WHERE FCID='$FCID'";
     $result2=$formDBLink->query($sqlQuery2);
@@ -143,6 +143,7 @@ if($SenderGuy == 'Student') {
     // $count = mysqli_num_rows($result2);
     // if($count == 1) {
     while($row2=$result2->fetch_assoc()) {
+      $i++;
       $StudentCourses = $row2['StudentCourses'];
       if(!(in_array($StudentCourses, $DuplicateChecker))) {
       $DuplicateChecker[] = $StudentCourses;
@@ -193,7 +194,6 @@ if($SenderGuy == 'Student') {
   <?php
   $sqlQuery1 = "SELECT * FROM facourses WHERE FacultyCourses='$FacultyCourses'";
   $result1=$formDBLink->query($sqlQuery1);
-  $i = 0;
   while($row1=$result1->fetch_assoc()) {
     $i++;
     $CourseID = $row1['CourseID'];
