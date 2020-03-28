@@ -55,19 +55,13 @@
                         <div class="addFacultyCourseForm">
                             <h1>Add Courses</h1>
                             <hr>
-                            <?php
-                              if (!isset($_POST['courseID'])) {
-                                header('Location: AddCourseFacultyPre.php');
-                              }
-                              $CourseID = $_POST['courseID'];
-                            ?>
                             <div class="form-row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Course</label>
                                         <select class="form-control" id="exampleFormControlSelect1" name="courseID">
-                                            <option selected value="<?php echo $CourseID ?>">CSE<?php echo $CourseID ?></option>
-                                            <!-- <option value="110">CSE110</option>
+                                            <option value="0">Select</option>
+                                            <option value="110">CSE110</option>
                                             <option value="111">CSE111</option>
                                             <option value="220">CSE220</option>
                                             <option value="221">CSE221</option>
@@ -76,7 +70,7 @@
                                             <option value="320">CSE320</option>
                                             <option value="321">CSE321</option>
                                             <option value="330">CSE330</option>
-                                            <option value="360">CSE360</option> -->
+                                            <option value="360">CSE360</option>
                                         </select>
                                     </div>
                                     <!-- <div class="form-group"><label>CourseID </label><input class="form-control" type="text" name="courseID"></div> -->
@@ -84,28 +78,9 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect2">Section</label>
-                                        <select class="form-control" id="exampleFormControlSelect2" name="section">
+                                        <select class="form-control" id="exampleFormControlSelect2" name="section" disabled>
                                             <option value="0">Select</option>
-                                            <?php
-                                              $section = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-                                              include "Handle/loginDB.php";
-                                              $formDBLink = mysqli_connect($host, $user, $password, $dbname);
-                                              $sqlQuery1 = "SELECT * FROM facourses WHERE CourseID='$CourseID' ORDER BY Section ASC";
-                                              $result1=$formDBLink->query($sqlQuery1);
-                                              while($row1=$result1->fetch_assoc()) {
-                                                $S = $row1['Section'];
-                                                if(($key = array_search($S, $section)) !== false) {
-                                                  unset($section[$key]);
-                                                }
-                                              }
-                                              foreach ($section as $sec) {
-                                            ?>
-                                            <option value="<?php echo $sec ?>"><?php echo $sec ?></option>
-                                            <?php
-                                              }
-                                              $section = array(1,2,3,4,5,6,7,8,9,10);
-                                            ?>
-                                            <!-- <option value="1">1</option>
+                                            <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
@@ -114,7 +89,7 @@
                                             <option value="7">7</option>
                                             <option value="8">8</option>
                                             <option value="9">9</option>
-                                            <option value="10">10</option> -->
+                                            <option value="10">10</option>
                                         </select>
                                     </div>
                                     <!-- <div class="form-group"><label>Section </label><input class="form-control" type="text" name="section"></div> -->
@@ -124,7 +99,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect3">Day</label>
-                                        <select class="form-control" id="exampleFormControlSelect3" name="day">
+                                        <select class="form-control" id="exampleFormControlSelect3" name="day" disabled>
                                             <option value="0">Select</option>
                                             <option value="1">SUN-TUE</option>
                                             <option value="2">MON-WED</option>
@@ -136,7 +111,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect4">Time</label>
-                                        <select class="form-control" id="exampleFormControlSelect4" name="time">
+                                        <select class="form-control" id="exampleFormControlSelect4" name="time" disabled>
                                             <option value="0">Select</option>
                                             <option value="8">8.00-9.20</option>
                                             <option value="9">9.30-10.50</option>
@@ -152,7 +127,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect5">totalSeat</label>
-                                        <select class="form-control" id="exampleFormControlSelect5" name="totalSeat">
+                                        <select class="form-control" id="exampleFormControlSelect5" name="totalSeat" disabled>
                                             <option value="0">Select</option>
                                             <option value="25">25</option>
                                             <option value="30">30</option>
@@ -168,11 +143,9 @@
                                 <button class="btn btn-danger form-btn" type="submit" name="AddCourseFaculty" value="AddCourse">Add</button>
                               </div>
                               <div class="col-md-12">
-                                <p><a href="AddCourseFacultyPre.php">Go Back</a></p>
                                 <?php
                                   if(isset($_SESSION['ErrorMsg'])) echo $_SESSION['ErrorMsg'];
                                 ?>
-                              </div>
                             </div>
                             <hr>
                         </div>

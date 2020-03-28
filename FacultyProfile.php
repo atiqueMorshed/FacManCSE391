@@ -71,7 +71,7 @@
 
                       </div> -->
                       <div class="form-row">
-                            <div class="col-sm-12 col-md-6 content-right"><a class="btn btn-danger form-btn" href="AddCourseFaculty.php">Add Course</a></div>
+                            <div class="col-sm-12 col-md-6 content-right"><a class="btn btn-danger form-btn" href="AddCourseFacultyPre.php">Add Course</a></div>
                             <div class="col-sm-12 col-md-6 content-right"><a class="btn btn-danger form-btn" href="EditFacultyProfile.php">Edit</a></div>
                       </div>
                   </div>
